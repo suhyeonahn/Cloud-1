@@ -1,0 +1,29 @@
+---
+# tasks file for inception
+- name: Synchronize Inception srcs
+  ansible.posix.synchronize:
+    src: files/
+    dest: /opt/wordpress/
+    recursive: yes
+    delete: yes
+
+- name: Create data/db directory
+  file:
+    path: "/home/suahn/data/db"
+    state: directory
+
+- name: Create data/web directory
+  file:
+    path: "/home/suahn/data/web"
+    state: directory
+
+- name: Give docker socket permissions to the user
+  command: sudo usermod -aG docker $USER # after this, reload vm
+
+- name: Start Docker containers
+  command: docker compose -f /opt/wordpress/docker-compose.yml up -d
+
+#- name: Configure automatic container restart
+#  systemd:
+#    name: docker-compose@wordpress
+#    enabled: yes

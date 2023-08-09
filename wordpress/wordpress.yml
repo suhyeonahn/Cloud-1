@@ -1,0 +1,7 @@
+---
+- name: Deploy WordPress
+  hosts: "{{ target | default('localhost') }}"
+  become: true
+  roles:
+    - docker_compose
+    - inception
