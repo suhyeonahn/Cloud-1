@@ -1,6 +1,6 @@
 ---
 - name: Deploy WordPress
-  hosts: "{{ target | default('localhost') }}"
+  hosts: servers
   become: true
   roles:
     - docker_compose
