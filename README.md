@@ -29,5 +29,4 @@ Tips for the project :)
   9. Configuring is a key
   10. Test and Debug!
 
-  
-  11.   
+
