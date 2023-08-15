@@ -1,0 +1,13 @@
+---
+# tasks file for docker_compose_down
+
+- name: Docker compose down
+  command: docker compose -f /opt/wordpress/docker-compose.yml down --remove-orphans --volumes
+
+#- name: Remove docker images
+#  command: docker rmi $(docker images -aq)
+#- name: Docker system prune
+#  command: docker system prune -a --volumes
+
+- name: Remove host volumes
+  command: sudo rm -rf /home/suahn/data

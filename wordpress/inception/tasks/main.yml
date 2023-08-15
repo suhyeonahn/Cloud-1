@@ -17,9 +17,9 @@
     path: "/home/suahn/data/web"
     state: directory
 
-- name: Create ssh directory
+- name: Create ssl directory
   file:
-    path: "/home/suahn/data/ssh"
+    path: "/home/suahn/data/ssl"
     state: directory
 
 - name: Give docker socket permissions to the user
@@ -28,7 +28,10 @@
 - name: Unconditionally reboot the machine with all defaults
   ansible.builtin.reboot:
 
-- name: Start Docker containers
+- name: Build docker images 
+  command: docker compose -f /opt/wordpress/docker-compose.yml build --no-cache
+
+- name: Docker compose up
   command: docker compose -f /opt/wordpress/docker-compose.yml up -d
 
 #- name: Configure automatic container restart

@@ -1,5 +1,5 @@
 ---
-# tasks file for docker_compose
+# tasks file for docker
 - name: Update apt cache
   apt:
     update_cache: yes

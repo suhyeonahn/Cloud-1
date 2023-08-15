@@ -1,0 +1,6 @@
+---
+- name: Docker compose down
+  hosts: servers
+  become: true
+  roles:
+    - docker_compose_down
