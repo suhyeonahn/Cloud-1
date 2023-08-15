@@ -2,34 +2,36 @@ version: "3.7"
 
 services:
   nginx: # service name
-    image: nginx
+    networks:
+      - myweb_network
     container_name: nginx_c
     build: ./requirements/nginx
     volumes:
       - web-data:/var/www/html
+      - ssl:/etc/nginx/ssl
     restart: unless-stopped # Always restart unless the developers forcibly stop the process
     expose: # publish the ports to the linked services of the container
       - "9000"
     ports:
       - "443:443/tcp" # host:container
-    env_file: /opt/wordpress/.env
-    #extra_hosts:
-    #  - "${DOMAIN_NAME}:127.0.0.1" # created in /etc/hosts
+    env_file: .env
     depends_on:
       - wordpress
   mariadb:
-    image: mariadb
+    networks:
+      - myweb_network
     container_name: mariadb_c
     build: ./requirements/mariadb
     volumes:
       - db-data:/var/lib/mysql
     restart: unless-stopped
-    env_file: /opt/wordpress/.env
+    env_file: .env
     expose:
       - "3306"
       - "8080"
   wordpress:
-    image: wordpress
+    networks:
+      - myweb_network
     container_name: wordpress_c
     build: ./requirements/wordpress
     volumes:
@@ -37,22 +39,22 @@ services:
     restart: unless-stopped
     stdin_open: true # i
     tty: true # t
-    env_file: /opt/wordpress/.env
+    env_file: .env
     expose:
       - "3306"
       - "9000"
       - "6379"
     depends_on:
       - mariadb
-  adminer:
-    image: adminer
-    container_name: adminer_c
-    build: ./requirements/bonus/adminer
-    volumes:
-      - web-data:/var/www/html
+  phpmyadmin:
+    networks:
+      - myweb_network
+    container_name: phpmyadmin_c
+    build: ./requirements/phpmyadmin
     restart: unless-stopped
     stdin_open: true
     tty: true
+    env_file: .env
     ports:
       - "8080:8080/tcp"
     depends_on:
@@ -66,7 +68,6 @@ volumes:
       o: bind
       type: none
       device: /home/suahn/data/db
-
   web-data: # named volume can persist data after restart or remove a container
     name: web-data
     driver: local
@@ -74,7 +75,14 @@ volumes:
       o: bind
       type: none
       device: /home/suahn/data/web
+  ssl:
+    name: ssl
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/suahn/data/ssl
 
 networks:
-  default:
+  myweb_network:
     driver: bridge

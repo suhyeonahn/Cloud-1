@@ -25,5 +25,7 @@ WORKDIR /var/www/html
 RUN chown -R www-data:www-data *
 RUN chmod -R 755 *
 
+WORKDIR /etc/nginx/sites-enabled
+
 #run in debug mode (foreground)
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]

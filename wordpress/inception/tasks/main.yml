@@ -17,8 +17,16 @@
     path: "/home/suahn/data/web"
     state: directory
 
+- name: Create ssh directory
+  file:
+    path: "/home/suahn/data/ssh"
+    state: directory
+
 - name: Give docker socket permissions to the user
-  command: sudo usermod -aG docker $USER # after this, reload vm
+  command: sudo usermod -aG docker vagrant # after this, reload vm
+
+- name: Unconditionally reboot the machine with all defaults
+  ansible.builtin.reboot:
 
 - name: Start Docker containers
   command: docker compose -f /opt/wordpress/docker-compose.yml up -d
