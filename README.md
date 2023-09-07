@@ -1,25 +1,24 @@
 # Automation Deployment using Ansible
 
-Rules
-• Your site can restart automatically if the server is rebooted.
+Rules </br>
+• Your site can restart automatically if the server is rebooted. </br>
 • In case of reboot all the data of the site are persisted (images, user accounts, articles,
-...).
-• It is possible to deploy your site on several servers in parallel.
+...). </br>
+• It is possible to deploy your site on several servers in parallel. </br>
 • The script must be able to function in an automated way with for only assumption
 an ubuntu 20.04 LTS like OS of the target instance running an SSH daemon and
-with Python installed.
+with Python installed. </br>
 • Your applications will run in separate containers that can communicate with each
-other (1 process = 1 container)
+other (1 process = 1 container) </br>
 • Public access to your server must be limited and secure (for example, it is not
-possible to connect directly to your database from the internet).
+possible to connect directly to your database from the internet). </br>
 • The services will be the different components of a WordPress to install by yourself.
-For example Phpmyadmin, MySQL, ...
-• You must have a docker-compose.yml.
-• You will need to ensure that your SQL database works with WordPress and PHPMyAdmin.
-• Your server should be able, when possible, to use TLS.
+For example Phpmyadmin, MySQL, ... </br>
+• You must have a docker-compose.yml. </br>
+• You will need to ensure that your SQL database works with WordPress and PHPMyAdmin. </br>
+• Your server should be able, when possible, to use TLS. </br>
 • You will need to make sure that, depending on the URL requested, your server
-redirects to the correct site.
-
+redirects to the correct site. </br> </br>
 
 Some useful command lines...
   1. Vagrant cli
